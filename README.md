@@ -1,6 +1,6 @@
 # Options Menu Documentation
 ## What is the options menu?
-The Options Menu is a custom menu that can be launched via a controller button combo (currently L+R) at any point during the console’s operation. It features a variety of commands to enhance the user experience of the console.
+The Options Menu is a custom menu that can be launched via a controller button combo at any point during the console’s operation. It features a variety of commands to enhance the user experience of the console.
 
 The options menu is easily extendible, allowing for other developers to add their own custom commands to the menu via hmods.
 
@@ -60,6 +60,8 @@ Removes all backup files on both NAND and USB.
 Removes only the game and core overrides. Does not modify the Retroarch settings and remap files.
 #### Delete remap files
 Removes only the remap files. Does not modify the Retroarch settings, game and core overrides.
+#### Toggle RA and Canoe load screens
+Toggle the RetroArch and Canoe loading screens on or off.
 
 ## Advanced Options
 #### Module Uninstaller
@@ -112,6 +114,9 @@ The full verbose log will be located here:
 
 
 > **Note:** Depending on what you are trying to do, you might have limited functionality within RetroArch when running it via the debugger. This app is primarily designed to debug cores, custom configs and themes.
+
+#### Change Options Button Combo
+This option will allow you to change the button combo used to launch the options menu. You will need to restart the console after setting a new combo.
 
 #### Clear Cache
 This option will force the kernel to clear the page cache and free up unused memory. You should not need to call this as the system should manage memory fine on it's own.
