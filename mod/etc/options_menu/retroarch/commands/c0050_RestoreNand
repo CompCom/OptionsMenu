@@ -1,0 +1,3 @@
+COMMAND_NAME=Restore Settings from NAND
+COMMAND_TYPE=INTERNAL
+COMMAND_STR=sh %script_dir%/restore-nand.sh

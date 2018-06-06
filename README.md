@@ -56,10 +56,14 @@ Overwrites your retroarch configs with the backups located at /etc/ra_backup/
 Overwrites your retroarch configs with the backups located at USB:/data/ra_backup/
 #### Delete all settings backups
 Removes all backup files on both NAND and USB.
+#### Transfer BIOS file(s)
+Copies bios files to USB:/data/ra_bios. Restores bios files from this folder to NAND.
 #### Delete game and core overrides
 Removes only the game and core overrides. Does not modify the Retroarch settings and remap files.
 #### Delete remap files
 Removes only the remap files. Does not modify the Retroarch settings, game and core overrides.
+#### Delete BIOS file(s) from NAND
+Removes all bios files from NAND only.
 #### Toggle RA and Canoe load screens
 Toggle the RetroArch and Canoe loading screens on or off.
 
@@ -121,6 +125,15 @@ This option will allow you to change the button combo used to launch the options
 #### Clear Cache
 This option will force the kernel to clear the page cache and free up unused memory. You should not need to call this as the system should manage memory fine on it's own.
 
+## Network Options
+#### Display IP Address
+This option will display both your public and internal ip addresses if you have a network adapter connected to your device.
+
+#### Reconnect
+This option will restart the network service on your device if you are not connected to the internet already.
+
+#### Search for SSIDs
+This option will scan and display a list of available SSIDs.
 
 ## Developer Information
 ### General Information
@@ -158,6 +171,9 @@ The command string supports the use of the following variables:
 |---------|------------|
 |%options_path% | Path to the folder containing the options binary.|
 |%script_dir% | Path to the current script folder set in the options binary.|
+
+### Compiling Options Menu
+The options menu can be compiled using the makefile provided. To compile the options menu you must have the SDL2 and libpng libraries as well as GNU Make installed. To cross-compile the options menu call `make` with the `CROSS_PREFIX` set to the prefix of your cross-compiler toolchain eg. `make CROSS_PREFIX=arm-linux-gnueabihf-`.
 
 ## Contributions and Thanks
 ### Contributions

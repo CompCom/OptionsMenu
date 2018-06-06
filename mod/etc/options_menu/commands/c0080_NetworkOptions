@@ -1,0 +1,4 @@
+COMMAND_NAME=Network Options
+COMMAND_TYPE=EXTERNAL
+RESTART_UI=FALSE
+COMMAND_STR=usleep 50000 && %options_path%/options --commandPath %options_path%/network/commands/ --scriptPath %options_path%/network/scripts --title "Network Options" &

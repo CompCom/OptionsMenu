@@ -1,0 +1,4 @@
+COMMAND_NAME=Toggle Write Access on USB
+COMMAND_TYPE=INTERNAL
+USB_ONLY=TRUE
+COMMAND_STR=sh %script_dir%/USB_RW.sh

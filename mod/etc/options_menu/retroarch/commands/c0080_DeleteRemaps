@@ -1,0 +1,3 @@
+COMMAND_NAME=Delete remap files
+COMMAND_TYPE=INTERNAL
+COMMAND_STR=sh %script_dir%/delete-remaps.sh

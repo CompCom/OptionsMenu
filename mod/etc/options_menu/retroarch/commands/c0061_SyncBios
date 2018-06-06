@@ -1,0 +1,4 @@
+COMMAND_NAME=Transfer BIOS file(s)
+COMMAND_TYPE=INTERNAL
+USB_ONLY=TRUE
+COMMAND_STR=sh %script_dir%/sync-bios.sh

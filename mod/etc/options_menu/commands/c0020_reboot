@@ -1,0 +1,4 @@
+COMMAND_NAME=Reboot Device
+COMMAND_TYPE=EXTERNAL
+RESTART_UI=FALSE
+COMMAND_STR=sh %script_dir%/ResumeUI.sh && sh %script_dir%/reboot.sh &

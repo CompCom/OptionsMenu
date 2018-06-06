@@ -1,0 +1,4 @@
+COMMAND_NAME=Delete BIOS file(s) from NAND
+COMMAND_TYPE=INTERNAL
+USB_ONLY=TRUE
+COMMAND_STR=sh %script_dir%/delete-bios.sh

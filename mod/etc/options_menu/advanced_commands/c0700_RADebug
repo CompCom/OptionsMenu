@@ -1,0 +1,5 @@
+COMMAND_NAME=RetroArch Debugger (USB logs)
+COMMAND_TYPE=EXTERNAL
+RESTART_UI=FALSE
+USB_ONLY=TRUE
+COMMAND_STR=sh %script_dir%/RADebug.sh && sh %script_dir%/ResumeUI.sh &

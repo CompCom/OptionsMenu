@@ -1,0 +1,3 @@
+COMMAND_NAME=Display Temp
+COMMAND_TYPE=INTERNAL
+COMMAND_STR=echo "Current Temperature: $(cat "/sys/class/thermal/thermal_zone0/temp")c"

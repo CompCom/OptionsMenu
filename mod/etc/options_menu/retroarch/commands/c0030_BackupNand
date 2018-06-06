@@ -1,0 +1,3 @@
+COMMAND_NAME=Backup Settings to NAND
+COMMAND_TYPE=INTERNAL
+COMMAND_STR=sh %script_dir%/backup-nand.sh

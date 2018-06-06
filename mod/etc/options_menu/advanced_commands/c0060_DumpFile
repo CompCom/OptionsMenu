@@ -1,0 +1,4 @@
+COMMAND_NAME=Dump File Structure (to USB)
+COMMAND_TYPE=INTERNAL
+USB_ONLY=TRUE
+COMMAND_STR=sh %script_dir%/DumpFile.sh

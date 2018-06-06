@@ -1,0 +1,4 @@
+COMMAND_NAME=Change Options Button Combo
+COMMAND_TYPE=INTERNAL
+IGNORE_INTERRUPT=TRUE
+COMMAND_STR=exec %script_dir%/ChangeCombo

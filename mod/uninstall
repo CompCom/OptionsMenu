@@ -1,0 +1,1 @@
+rm -f "$rootfs/etc/options_menu/button.cfg"

@@ -1,0 +1,4 @@
+COMMAND_NAME=Retroarch Options
+COMMAND_TYPE=EXTERNAL
+RESTART_UI=FALSE
+COMMAND_STR=usleep 50000 && %options_path%/options --commandPath %options_path%/retroarch/commands/ --scriptPath %options_path%/retroarch/scripts --title "Retroarch Options" &
