@@ -5,20 +5,26 @@
 source /etc/preinit
 script_init
 
-case "$(cat "$mountpoint/etc/clover/boardtype")-$(cat "$mountpoint/etc/clover/REGION")" in
-    dp-nes-EUR_USA)
+case "$sftype-$sfregion" in
+    nes-usa)
       echo -ne "$mountpoint/usr/share/clover-ui/resources/sprites/nes.png"
       ;;
-    dp-hvc-JPN)
+    nes-eur)
+      echo -ne "$mountpoint/usr/share/clover-ui/resources/sprites/nes.png"
+      ;;
+    nes-jpn)
       echo -ne "$mountpoint/usr/share/clover-ui/resources/sprites/hvc.png"
       ;;
-    dp-shvc-USA)
+    hvcj-jpn)
+      echo -ne "$mountpoint/usr/share/ui/hvc/resources/sprites/packed.png"
+      ;;
+    snes-usa)
       echo -ne "$mountpoint/usr/share/ui/snes-usa/resources/sprites/packed.png"
       ;;
-    dp-shvc-EUR)
+    snes-eur)
       echo -ne "$mountpoint/usr/share/ui/snes-eur/resources/sprites/packed.png"
       ;;
-    dp-shvc-JPN)
+    snes-jpn)
       echo -ne "$mountpoint/usr/share/ui/shvc/resources/sprites/packed.png"
       ;;
 esac
