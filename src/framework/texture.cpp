@@ -65,14 +65,15 @@ SDL_Texture * LoadTexturePNG(SDL_Renderer *renderer, std::string file, SDL_Rect 
     if(png_image_begin_read_from_file(&png, file.c_str()) == 0)
     {
         std::cerr << "Cannot open png file: " << file << "\n";
-        exit(1);
+        return nullptr;
     }
     //Set PNG Format
     png.format = PNG_FORMAT_RGBA;
     if(png.width == 0 || png.height == 0)
     {
         std::cerr << "Invalid png: " << file << "\n";
-        exit(1);
+        png_image_free(&png);
+        return nullptr;
     }
     if(rect)
     {

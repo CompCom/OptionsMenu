@@ -38,6 +38,12 @@ Command::Command(std::ifstream & in)
             command = value;
         else if(param.compare("USB_ONLY")==0)
             usbOnly = (value == "TRUE");
+        else if(param.compare("PREVIEW_IMAGE")==0)
+            previewImage = value;
+        else if(param.compare("PREVIEW_IMAGE_X")==0)
+            previewImageX = std::stoi(value);
+        else if(param.compare("PREVIEW_IMAGE_Y")==0)
+            previewImageY = std::stoi(value);
     }
     in.close();
 }

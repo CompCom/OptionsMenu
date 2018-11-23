@@ -125,13 +125,46 @@ int main(int argc, char * argv[])
     SDL_Rect & pointerRect = pointerText.rect;
     Texture CompComText("created by CompCom", 16, renderer, 1100, 620, true);
 
-    //Create Command Textures and Set Positions
-    int height = 260;
+    //Create Command Texture
     for(Command & c : commands)
+        c.texture = Texture(c.name, 16, renderer, 50, 0);
+
+    const int DisplayItemCount = 16;
+    int topListItemNumber = 1;
+    std::shared_ptr<Texture> PreviewImage;
+    auto SetCurrentCommand = [&] (int newCommandId)
     {
-        c.texture = Texture(c.name, 16, renderer, 50, height);
-        height+=18;
-    }
+        currentCommandId = newCommandId;
+        const Command & currentCommand = commands[currentCommandId];
+
+        bool updateCommandYPos = false;
+        if(currentCommandId < topListItemNumber)
+        {
+            topListItemNumber = currentCommandId;
+            updateCommandYPos = true;
+        }
+        else if(currentCommandId >= topListItemNumber+DisplayItemCount)
+        {
+            topListItemNumber = currentCommandId-DisplayItemCount+1;
+            updateCommandYPos = true;
+        }
+        if(updateCommandYPos)
+        {
+            int y = 260;
+            for(int i = 0, count = std::min(DisplayItemCount,static_cast<int>(commands.size())); i < count; ++i)
+            {
+                commands[i+topListItemNumber].texture.rect.y = y;
+                y += 18;
+            }
+        }
+
+        pointerRect.y = currentCommand.texture.rect.y;
+        if(currentCommand.previewImage.size())
+            PreviewImage = std::make_shared<Texture>(currentCommand.previewImage, renderer, currentCommand.previewImageX, currentCommand.previewImageY);
+        else
+            PreviewImage.reset();
+    };
+    SetCurrentCommand(0);
 
     const std::string exitCommand = "/bin/sh " + optionsLocation +"/scripts/ResumeUI.sh";
     for(;;)
@@ -155,9 +188,7 @@ int main(int argc, char * argv[])
         }
         if(controller.GetButtonStatus(A) || controller.GetButtonStatus(START))
         {
-            if(commands[currentCommandId].command.size() == 0)
-                continue; //TO-DO: Replace this with error message?
-            else if(commands[currentCommandId].runInternal)
+            if(commands[currentCommandId].runInternal)
             {
                 commands[currentCommandId].RunCommand(sdl_context, &controller, menuL, menuU);
             }
@@ -171,29 +202,32 @@ int main(int argc, char * argv[])
         }
         else if(controller.GetButtonStatus(UP))
         {
-            currentCommandId = (currentCommandId-1+commands.size())%commands.size();
-            pointerRect.y = commands[currentCommandId].texture.rect.y;
+            int newCommandId = currentCommandId;
+            do { newCommandId = (newCommandId-1+commands.size())%commands.size(); }
+            while(commands[newCommandId].command.size() == 0);
+            SetCurrentCommand(newCommandId);
         }
         else if(controller.GetButtonStatus(DOWN))
         {
-            currentCommandId = (currentCommandId+1)%commands.size();
-            pointerRect.y = commands[currentCommandId].texture.rect.y;
+            int newCommandId = currentCommandId;
+            do { newCommandId = (newCommandId+1)%commands.size(); }
+            while(commands[newCommandId].command.size() == 0);
+            SetCurrentCommand(newCommandId);
         }
         else if(controller.GetButtonStatus(B))
-        {
-            currentCommandId = commands.size()-1;
-            pointerRect.y = commands[currentCommandId].texture.rect.y;
-        }
+            SetCurrentCommand(commands.size()-1);
 
         //Draw all textures
         banner.Draw(renderer);
         menuU.Draw(renderer);
         menuL.Draw(renderer);
         titleText.Draw(renderer);
-        for(Command & c : commands)
+        for(int i = 0, count = std::min(DisplayItemCount,static_cast<int>(commands.size())); i < count; ++i)
         {
-            c.texture.Draw(renderer);
+            commands[i+topListItemNumber].texture.Draw(renderer);
         }
+        if(PreviewImage.get())
+            PreviewImage->Draw(renderer);
         pointerText.Draw(renderer);
         CompComText.Draw(renderer);
 

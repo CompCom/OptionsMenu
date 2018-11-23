@@ -27,6 +27,9 @@ struct Command
     bool ignoreInterrupt = false;
     bool usbOnly = false;
     Texture texture;
+    std::string previewImage;
+    int previewImageX = 0;
+    int previewImageY = 0;
 };
 
 #endif
