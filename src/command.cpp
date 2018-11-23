@@ -42,25 +42,6 @@ Command::Command(std::ifstream & in)
     in.close();
 }
 
-std::vector<std::string> splitString(std::string s, char delim = '\n')
-{
-    std::vector<std::string> list;
-    std::string temp;
-    for(unsigned int i = 0; i < s.size(); ++i)
-    {
-        if(s[i]==delim)
-        {
-            list.push_back(temp);
-            temp="";
-        }
-        else
-            temp+=s[i];
-    }
-    if(temp.size() && temp!="\n")
-        list.push_back(temp);
-    return list;
-}
-
 void Command::RunCommand(SDL_Context & sdl_context, Controller * controller, Sprite & menuL, Sprite & menuU) const
 {
     std::list<Texture> textList;
@@ -94,23 +75,14 @@ void Command::RunCommand(SDL_Context & sdl_context, Controller * controller, Spr
             {
                 std::string sBuffer(buffer);
                 int pos = sBuffer.find('\n');
-                if(pos < 0)
+                if(pos > 0)
+                    sBuffer[pos] = '\0';
+                textList.push_back(Texture(sBuffer, 8, renderer, 30));
+                
+                if(textList.size() > 40)
                 {
-                    textList.push_back(Texture(sBuffer, 8, renderer, 30));
+                    textList.erase(textList.begin());
                 }
-                else
-                {
-                    auto stringList = splitString(sBuffer);
-                    for(auto & s : stringList)
-                    {
-                        textList.push_back(Texture(s, 8, renderer, 30));
-                    }
-                }
-            }
-
-            while(textList.size() > 40)
-            {
-                textList.erase(textList.begin());
             }
 
             controller->Update();
