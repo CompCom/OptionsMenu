@@ -21,6 +21,7 @@ struct Texture
     Texture(const std::string & text, int fontSize, SDL_Renderer* renderer, int x = 0, int y = 0, bool centerText = false, const int color = 0xFFFFFFFF);
     Texture(const std::string & pngFilePath, SDL_Renderer* renderer, int x = 0, int y = 0, bool centerImg = false);
     void Draw(SDL_Renderer* renderer);
+    void Draw(SDL_Renderer* renderer, SDL_RendererFlip flip_enum);
 };
 
 struct Sprite

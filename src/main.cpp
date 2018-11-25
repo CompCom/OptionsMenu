@@ -106,6 +106,7 @@ int main(int argc, char * argv[])
     }
 
     int currentCommandId = 0;
+    const int DisplayItemCount = 16;
 
     //Create SDL Window/Renderer and Controller Handler
     SDL_Context sdl_context(std::chrono::milliseconds(33), false);
@@ -127,12 +128,14 @@ int main(int argc, char * argv[])
     Texture pointerText("->", 16, renderer, 20, 260, false, 0xFF00FF00);
     SDL_Rect & pointerRect = pointerText.rect;
     Texture CompComText("created by CompCom", 16, renderer, 1100, 620, true);
+    Texture scrollUp("^", 16, renderer, 30, 248);
+    Texture scrollDown = scrollUp;
+    scrollDown.rect.y = 252+DisplayItemCount*18;
 
     //Create Command Texture
     for(Command & c : commands)
         c.texture = Texture(c.name, 16, renderer, 50, 0);
 
-    const int DisplayItemCount = 16;
     int topListItemNumber = 1;
     std::shared_ptr<Texture> PreviewImage;
     auto SetCurrentCommand = [&] (int newCommandId)
@@ -233,6 +236,12 @@ int main(int argc, char * argv[])
             PreviewImage->Draw(renderer);
         pointerText.Draw(renderer);
         CompComText.Draw(renderer);
+        
+        // Display Scroll Arrows when needed
+        if(topListItemNumber != 0)
+            scrollUp.Draw(renderer);
+        if((topListItemNumber + DisplayItemCount) < commands.size())
+            scrollDown.Draw(renderer, SDL_FLIP_VERTICAL);
 
         //Render Framebuffer and Wait for Next Frame
         sdl_context.EndFrame();

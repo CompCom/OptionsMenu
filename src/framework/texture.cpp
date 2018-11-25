@@ -48,6 +48,12 @@ void Texture::Draw(SDL_Renderer* renderer)
       SDL_RenderCopyEx(renderer, texture.get(), NULL, &rect, 0, NULL, SDL_FLIP_NONE);
 }
 
+void Texture::Draw(SDL_Renderer* renderer, SDL_RendererFlip flip_enum)
+{
+    if(texture.get())
+      SDL_RenderCopyEx(renderer, texture.get(), NULL, &rect, 0, NULL, flip_enum);
+}
+
 void Sprite::Draw(SDL_Renderer * renderer)
 {
     SDL_RenderCopyEx(renderer, texture.get(), &sRect, &dRect, 0, NULL, SDL_FLIP_NONE);
