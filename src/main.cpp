@@ -87,11 +87,14 @@ int main(int argc, char * argv[])
             if(in.is_open())
             {
                 Command c(in);
-                if(!c.usbOnly || (c.usbOnly && usbReady))
+                if(!(commands.size() == 0 && c.command.size() == 0))
                 {
-                    sReplace(c.command, "%options_path%", optionsLocation);
-                    sReplace(c.command, "%script_dir%", scriptLocation);
-                    commands.push_back(c);
+                    if(!c.usbOnly || (c.usbOnly && usbReady))
+                    {
+                        sReplace(c.command, "%options_path%", optionsLocation);
+                        sReplace(c.command, "%script_dir%", scriptLocation);
+                        commands.push_back(c);
+                    }
                 }
             }
         }
