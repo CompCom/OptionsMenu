@@ -166,7 +166,13 @@ int main(int argc, char * argv[])
 
         pointerRect.y = currentCommand.texture.rect.y;
         if(currentCommand.previewImage.size())
+        {
             PreviewImage = std::make_shared<Texture>(currentCommand.previewImage, renderer, currentCommand.previewImageX, currentCommand.previewImageY);
+            if(currentCommand.previewImageWidth > 0)
+                PreviewImage->rect.w = currentCommand.previewImageWidth;
+            if(currentCommand.previewImageHeight > 0)
+                PreviewImage->rect.h = currentCommand.previewImageHeight;
+        }
         else
             PreviewImage.reset();
     };
@@ -236,7 +242,7 @@ int main(int argc, char * argv[])
             PreviewImage->Draw(renderer);
         pointerText.Draw(renderer);
         CompComText.Draw(renderer);
-        
+
         // Display Scroll Arrows when needed
         if(topListItemNumber != 0)
             scrollUp.Draw(renderer);

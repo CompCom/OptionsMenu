@@ -30,6 +30,8 @@ struct Command
     std::string previewImage;
     int previewImageX = 0;
     int previewImageY = 0;
+    int previewImageWidth = -1;
+    int previewImageHeight = -1;
 };
 
 #endif

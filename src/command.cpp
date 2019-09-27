@@ -44,6 +44,10 @@ Command::Command(std::ifstream & in)
             previewImageX = std::stoi(value);
         else if(param.compare("PREVIEW_IMAGE_Y")==0)
             previewImageY = std::stoi(value);
+        else if(param.compare("PREVIEW_IMAGE_WIDTH")==0)
+            previewImageWidth = std::stoi(value);
+        else if(param.compare("PREVIEW_IMAGE_HEIGHT")==0)
+            previewImageHeight = std::stoi(value);
     }
     in.close();
 }
@@ -84,7 +88,7 @@ void Command::RunCommand(SDL_Context & sdl_context, Controller * controller, Spr
                 if(pos > 0)
                     sBuffer[pos] = '\0';
                 textList.push_back(Texture(sBuffer, 8, renderer, 30));
-                
+
                 if(textList.size() > 40)
                 {
                     textList.erase(textList.begin());

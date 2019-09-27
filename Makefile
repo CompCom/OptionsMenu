@@ -8,13 +8,15 @@ SOURCES = src/main.cpp src/command.cpp src/framework/sdl_context.cpp src/framewo
 OBJECTS = $(SOURCES:.cpp=.o)
 
 all: $(TARGET_NAME).hmod
-$(TARGET_NAME).hmod: binaries
+$(TARGET_NAME).hmod: mod/etc/options_menu/options mod/etc/options_menu/optiond
 	$(CROSS_PREFIX)$(STRIP) mod/etc/options_menu/options
 	$(CROSS_PREFIX)$(STRIP) mod/etc/options_menu/optiond
 	cd mod/; tar -czvf "../$(TARGET_NAME).hmod" *
 
-binaries: $(OBJECTS) src/daemon.o
+mod/etc/options_menu/options: $(OBJECTS)
 	$(CROSS_PREFIX)$(CXX) $(OBJECTS) $(LDLIBS) $(LDFLAGS) -o mod/etc/options_menu/options
+
+mod/etc/options_menu/optiond: src/daemon.o src/framework/controller.o
 	$(CROSS_PREFIX)$(CXX) $(LDFLAGS) src/daemon.o src/framework/controller.o -o mod/etc/options_menu/optiond
 
 %.o: %.cpp
