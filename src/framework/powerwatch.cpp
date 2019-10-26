@@ -31,9 +31,9 @@ PowerWatch::PowerWatch()
                     std::string temp;
                     std::getline(in, temp);
                     in.close();
-                    if(temp == "sunxi-knob")
+                    if(temp.compare("sunxi-knob") == 0 || temp.compare("gpio-keys") == 0)
                         powerFd = open(("/dev/input/"+name).c_str(), O_RDONLY | O_NONBLOCK);
-                    else if(temp == "sunxi-keyboard")
+                    else if(temp.compare("sunxi-keyboard") == 0)
                         resetFd = open(("/dev/input/"+name).c_str(), O_RDONLY | O_NONBLOCK);
                 }
             }
