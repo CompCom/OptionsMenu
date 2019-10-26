@@ -27,10 +27,22 @@ void sReplace(std::string & command, std::string oldString, std::string newStrin
     }
 }
 
+static struct ExitManager
+{
+    std::string exitCommand;
+    bool runExitCommand = true;
+    ~ExitManager()
+    {
+        if(runExitCommand)
+            system(exitCommand.c_str());
+    }
+} _exitManager;
+
 int main(int argc, char * argv[])
 {
     std::string optionsLocation(argv[0]);
     optionsLocation = optionsLocation.substr(0, optionsLocation.find_last_of('/')+1);
+    _exitManager.exitCommand = "/bin/sh " + optionsLocation + "/scripts/ResumeUI.sh";
     std::string commandLocation(optionsLocation + "commands/");
     std::string scriptLocation(optionsLocation + "scripts/");
     std::string spriteSheetLocation;
@@ -178,7 +190,6 @@ int main(int argc, char * argv[])
     };
     SetCurrentCommand(0);
 
-    const std::string exitCommand = "/bin/sh " + optionsLocation +"/scripts/ResumeUI.sh";
     for(;;)
     {
         //Clear Buffer and Update Input State
@@ -195,7 +206,6 @@ int main(int argc, char * argv[])
 
         if(sdl_context.powerwatch->buttonPress())
         {
-            system(exitCommand.c_str());
             break;
         }
         if(controller.GetButtonStatus(A) || controller.GetButtonStatus(START))
@@ -207,8 +217,7 @@ int main(int argc, char * argv[])
             else
             {
                 system(commands[currentCommandId].command.c_str());
-                if(commands[currentCommandId].restartUI)
-                    system(exitCommand.c_str());
+                _exitManager.runExitCommand = commands[currentCommandId].restartUI;
                 break;
             }
         }
