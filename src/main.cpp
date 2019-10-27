@@ -180,10 +180,24 @@ int main(int argc, char * argv[])
         if(currentCommand.previewImage.size())
         {
             PreviewImage = std::make_shared<Texture>(currentCommand.previewImage, renderer, currentCommand.previewImageX, currentCommand.previewImageY);
-            if(currentCommand.previewImageWidth > 0)
+            double wAspectRatio = (double)currentCommand.previewImageHeight / (double)PreviewImage->rect.h * (double)PreviewImage->rect.w;
+            double hAspectRatio = (double)currentCommand.previewImageWidth / (double)PreviewImage->rect.w * (double)PreviewImage->rect.h;
+            if (currentCommand.previewImageWidth > 0)
+            {
                 PreviewImage->rect.w = currentCommand.previewImageWidth;
-            if(currentCommand.previewImageHeight > 0)
+                if (currentCommand.previewImageHeight <= 0)
+                {
+                    PreviewImage->rect.h = hAspectRatio;
+                }
+            }
+            if (currentCommand.previewImageHeight > 0)
+            {
                 PreviewImage->rect.h = currentCommand.previewImageHeight;
+                if (currentCommand.previewImageWidth <= 0)
+                {
+                    PreviewImage->rect.w = wAspectRatio;
+                }
+            }
         }
         else
             PreviewImage.reset();
