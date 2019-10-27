@@ -161,6 +161,11 @@ Command Files should contain the following fields:
 |COMMAND_TYPE|Specifies whether command is run inside the options menu pseudo terminal (internally) or run externally. Possible values `INTERNAL` or `EXTERNAL`|
 |RESTART_UI|Specifies if the paused UI should be resumed after running command (external commands only). If you set this value to `FALSE` you must manually resume the UI using `/bin/sh /etc/options_menu/script/ResumeUI.sh` after executing your code.|
 |COMMAND_STR|Command string to be executed. Commands must be single line only. To execute multi-line scripts use a script file.|
+|PREVIEW_IMAGE|Specifies the path to a thumbnail/icon to the oprion menu.|
+|PREVIEW_IMAGE_X|Position the thumbnail/icon on the X axys|
+|PREVIEW_IMAGE_Y|Position the thumbnail/icon on the Y axys.|
+|PREVIEW_IMAGE_WIDTH|Sets the width for the thumbnail/icon.|
+|PREVIEW_IMAGE_HEIGHT|Sets the height for the thumbnail/icon.|
 
 >Note: Fields and values are case sensitive. Values should be separated from fields using '=' without spaces.
 
