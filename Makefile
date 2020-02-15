@@ -7,11 +7,17 @@ LDFLAGS =
 SOURCES = src/main.cpp src/command.cpp src/framework/sdl_context.cpp src/framework/texture.cpp src/framework/controller.cpp src/framework/powerwatch.cpp
 OBJECTS = $(SOURCES:.cpp=.o)
 
-all: $(TARGET_NAME).hmod
+all: $(TARGET_NAME).hmod $(TARGET_NAME)_b_down.hmod
+
+$(TARGET_NAME)_b_down.hmod: $(TARGET_NAME).hmod
+	cp button.cfg mod/etc/options_menu/
+	cd mod/; tar -czvf "../$(TARGET_NAME)_b_down.hmod" *
+
 $(TARGET_NAME).hmod: mod/etc/options_menu/options mod/etc/options_menu/optiond mod/etc/options_menu/mod_uninstall/mod_uninstall
 	$(CROSS_PREFIX)$(STRIP) mod/etc/options_menu/options
 	$(CROSS_PREFIX)$(STRIP) mod/etc/options_menu/optiond
 	$(CROSS_PREFIX)$(STRIP) mod/etc/options_menu/mod_uninstall/mod_uninstall
+	rm -f mod/etc/options_menu/button.cfg
 	cd mod/; tar -czvf "../$(TARGET_NAME).hmod" *
 
 mod/etc/options_menu/options: $(OBJECTS)
@@ -28,6 +34,6 @@ mod/etc/options_menu/mod_uninstall/mod_uninstall: src/mod_uninstall.o
 
 clean:
 	find -name "*.o" -type f -delete
-	rm -f mod/etc/options_menu/options mod/etc/options_menu/optiond mod/etc/options_menu/mod_uninstall/mod_uninstall $(TARGET_NAME).hmod
+	rm -f mod/etc/options_menu/options mod/etc/options_menu/optiond mod/etc/options_menu/mod_uninstall/mod_uninstall mod/etc/options_menu/button.cfg $(TARGET_NAME).hmod $(TARGET_NAME)_b_down.hmod
 
 .PHONY: clean
