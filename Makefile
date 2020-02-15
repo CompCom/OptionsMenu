@@ -8,9 +8,10 @@ SOURCES = src/main.cpp src/command.cpp src/framework/sdl_context.cpp src/framewo
 OBJECTS = $(SOURCES:.cpp=.o)
 
 all: $(TARGET_NAME).hmod
-$(TARGET_NAME).hmod: mod/etc/options_menu/options mod/etc/options_menu/optiond
+$(TARGET_NAME).hmod: mod/etc/options_menu/options mod/etc/options_menu/optiond mod/etc/options_menu/mod_uninstall/mod_uninstall
 	$(CROSS_PREFIX)$(STRIP) mod/etc/options_menu/options
 	$(CROSS_PREFIX)$(STRIP) mod/etc/options_menu/optiond
+	$(CROSS_PREFIX)$(STRIP) mod/etc/options_menu/mod_uninstall/mod_uninstall
 	cd mod/; tar -czvf "../$(TARGET_NAME).hmod" *
 
 mod/etc/options_menu/options: $(OBJECTS)
@@ -19,11 +20,14 @@ mod/etc/options_menu/options: $(OBJECTS)
 mod/etc/options_menu/optiond: src/daemon.o src/framework/controller.o
 	$(CROSS_PREFIX)$(CXX) $(LDFLAGS) src/daemon.o src/framework/controller.o -o mod/etc/options_menu/optiond
 
+mod/etc/options_menu/mod_uninstall/mod_uninstall: src/mod_uninstall.o
+	$(CROSS_PREFIX)$(CXX) src/mod_uninstall.o src/framework/*.o $(LDLIBS) $(LDFLAGS) -o mod/etc/options_menu/mod_uninstall/mod_uninstall
+
 %.o: %.cpp
 	$(CROSS_PREFIX)$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean:
 	find -name "*.o" -type f -delete
-	rm -f mod/etc/options_menu/options mod/etc/options_menu/optiond $(TARGET_NAME).hmod
+	rm -f mod/etc/options_menu/options mod/etc/options_menu/optiond mod/etc/options_menu/mod_uninstall/mod_uninstall $(TARGET_NAME).hmod
 
 .PHONY: clean
