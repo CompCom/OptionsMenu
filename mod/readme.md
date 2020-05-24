@@ -1,5 +1,5 @@
 ------------------------------
-Name: Options Menu v1.3.3
+Name: Options Menu v1.3.4
 Creator: CompCom
 Category: System
 ------------------------------
